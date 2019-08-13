@@ -1,4 +1,4 @@
-import time as t
+﻿import time as t
 
 class MyTimer(): #带括号是python3的风格
     def __init__(self):
