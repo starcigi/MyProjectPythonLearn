@@ -22,20 +22,24 @@ def find_imgs(url):
     img_addrs = []
 
     a = html.find('img src=')
-    while a != -1: 
+    while a != -1: #寻找多个图片，一个img一个img的判断
         b = html.find('.jpg',a,a+255)
         if b != -1:
             img_addrs.append(html[a+9:b+4])  #a+9是索引到http的h，b+4是加上.jpg的长度
         else:
             b = a + 9
             
-        a = html.find('img src=', b)
+        a = html.find('img src=', b)  #下一次循环的起始位置就是上一次循环的截止位置，也就是b
     
-    for each in img_addrs:
-        print(each)
+    return img_addrs
+
     
 def save_imgs(folder,img_addrs):
-    pass
+    for each in img_addrs:
+        filename = each.split('/')[-1]
+        with open(filename,'wb') as f:
+            img = url_open(each)
+            f.write(img)
 
 def download_mm(folder='ooxx',pages = 10):
     os.mkdir(folder)
